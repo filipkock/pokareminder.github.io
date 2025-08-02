@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Poka Reminder – Make medication fun</title>
+    <meta
+      name="description"
+      content="Poka Reminder turns your daily medication routine into a fun, gamified experience. Never miss a dose again."
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      #site-content {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+      }
+
+      #site-content.visible {
+        opacity: 1;
+      }
+      :root {
+        --accent: #000;
+        --bg-light: #f7f7f8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        line-height: 1.5;
+        color: var(--accent);
+        background: #f7f7f8;
+      }
+      .bg-light {
+        background-color: var(--bg-light);
+      }
+      .bg-dark {
+        background-color: #1c1c1e;
+        color: #fff;
+      }
+      .bg-dark a,
+      .bg-dark p,
+      .bg-dark h2,
+      .bg-dark h1,
+      .bg-dark .feature-title {
+        color: #fff;
+      }
+      .bg-dark .feature-icon {
+        stroke: #fff;
+      }
+      .bg-dark a {
+        text-decoration: underline;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      header,
+      section {
+        padding: 4rem 1.25rem;
+      }
+      .wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+      /* Hero */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .hero h1 {
+        font-size: 2.75rem;
+        margin: 2rem 0 1.5rem;
+        line-height: 1.4;
+      }
+      .hero-big {
+        /* font-size: 3.2rem; */
+        font-weight: 700;
+        /* letter-spacing: -1px; */
+      }
+
+      .hero-accent {
+        text-transform: uppercase;
+      }
+
+      .tagline {
+        color: #555;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .feature-icon {
+        margin-bottom: 0.75rem;
+        stroke: none;
+      }
+      .hero p {
+        font-size: 1.15rem;
+        max-width: 500px;
+        margin: 0 0 2rem;
+      }
+      .cta-btn {
+        display: inline-block;
+        padding: 0.9rem 1.8rem;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background 0.3s;
+      }
+      .cta-btn:hover {
+        background: #333;
+      }
+      /* Features */
+      .features {
+        background: var(--bg-light);
+      }
+      .feature-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        text-align: center;
+      }
+      .feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .feature-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 2rem 1.5rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+      }
+      /* How it works */
+      .steps {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+      .step-number {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+      /* Rewards */
+      .rewards {
+        background: var(--bg-light);
+        text-align: center;
+      }
+      .rewards h2 {
+        font-size: 2rem;
+      }
+      .card-gallery {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0.5rem 0;
+      }
+      .card-gallery img {
+        flex: 0 0 auto;
+        width: 120px;
+        height: auto;
+      }
+      @media (min-width: 768px) {
+        .hero h1 {
+          font-size: 3.5rem;
+        }
+      }
+      /* Footer */
+      footer {
+        text-align: center;
+        font-size: 0.85rem;
+        padding: 2rem 1.25rem;
+      }
+
+      /* MOBILE FIRST – nothing else needed */
+
+      .fade-in-section {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 1s ease-out, transform 1s ease-out;
+        will-change: opacity, transform;
+      }
+
+      .fade-in-section.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      id="intro-video"
+      src="assets/card_reveal.mp4"
+      autoplay
+      muted
+      playsinline
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: contain;
+        background: #f7f7f8;
+        z-index: 9999;
+      "
+    ></video>
+    <main id="site-content">
+      <!-- HERO -->
+      <header class="bg-light fade-in-section">
+        <div class="wrapper hero">
+          <img
+            src="assets/logo.png"
+            alt="Poka Reminder Logo"
+            style="
+              width: 80px;
+              height: auto;
+              margin: 0 auto 1.5rem;
+              display: block;
+            "
+          />
+
+          <h1 class="hero-title">
+            Take your meds.<br />
+            Earn rewards.<br />
+            Feel
+            <span class="hero-accent" style="font-weight: 800">better.</span>
+          </h1>
+
+          <p class="tagline">
+            Poka turns your routine into a game. Stay consistent and unlock fun
+            collectibles along the way.
+          </p>
+
+          <a href="#waitlist" class="cta-btn">Download now</a>
+
+          <img
+            src="assets/mockup.png"
+            alt="App Mockup"
+            style="
+              width: 100%;
+              max-width: 800px;
+              margin-top: 3rem;
+              border-radius: 16px;
+            "
+          />
+        </div>
+      </header>
+
+      <!-- FEATURES -->
+      <section class="features bg-light fade-in-section">
+        <div class="wrapper feature-grid">
+          <div class="feature-card">
+            <svg
+              class="feature-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="black"
+            >
+              <path
+                d="M9 2a2 2 0 0 0-2 2v2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2
+                       2 0 0 0 2-2V8a2 2 0 0 0-2-2h-1V4a2 2 0 0 0-2-2H9z"
+              />
+              <path
+                fill="#fff"
+                d="M16.5 11l-5 5-2.5-2.5L10 12l1.5 1.5 3.5-3.5z"
+              />
+            </svg>
+            <div class="feature-title">Effortless Tracking</div>
+            <p>
+              Log every prescription once and let Poka handle the reminders.
+            </p>
+          </div>
+          <div class="feature-card">
+            <svg
+              class="feature-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="black"
+            >
+              <path
+                d="M12 2a8 8 0 0 0-8 8v5l-2 2v1h20v-1l-2-2v-5a8 8 0 0 0-8-8z"
+              />
+              <path fill="#fff" d="M11 6h2v7h-2zm0 8h2v2h-2z" />
+            </svg>
+            <div class="feature-title">Timely Reminders</div>
+            <p>
+              Smart notifications arrive exactly when you need them. Not a
+              second sooner or later.
+            </p>
+          </div>
+          <div class="feature-card">
+            <svg
+              class="feature-icon"
+              width="48"
+              height="48"
+              viewBox="0 0 24 24"
+              fill="black"
+            >
+              <rect x="3" y="4" width="18" height="14" rx="2" />
+              <path fill="#fff" d="M8 9h8v2H8zM8 12h6v2H8z" />
+            </svg>
+            <div class="feature-title">Collectible Cards</div>
+            <p>
+              Earn unique cards for streaks and milestone achievements. Good
+              habits unlock rewards!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="bg-dark fade-in-section">
+        <div class="wrapper" style="text-align: center; max-width: 720px">
+          <h2 style="font-size: 2rem; margin-bottom: 2rem">How It Works</h2>
+          <div
+            class="steps"
+            style="display: flex; flex-direction: column; gap: 2rem"
+          >
+            <div>
+              <div class="step-number">1.</div>
+              <p>Add your routines and schedule.</p>
+            </div>
+            <div>
+              <div class="step-number">2.</div>
+              <p>Receive gentle nudges at the right time.</p>
+            </div>
+            <div>
+              <div class="step-number">3.</div>
+              <p>Mark doses taken and watch your card deck grow.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REWARDS -->
+      <section class="rewards bg-light fade-in-section">
+        <div class="wrapper">
+          <h2>Make Routines Fun</h2>
+          <p>
+            Consistency shouldn’t feel like a chore. Poka’s collectible cards
+            add a playful twist to everyday health routines.
+          </p>
+          <div class="card-gallery">
+            <div
+              class="feature-card"
+              style="
+                padding: 2rem;
+                background: #fff;
+                max-width: 320px;
+                margin: 0 auto;
+              "
+            >
+              <h3
+                style="
+                  font-weight: 600;
+                  font-size: 1.25rem;
+                  margin-bottom: 0.5rem;
+                "
+              >
+                LV. 1 - Sad Egg
+              </h3>
+              <img src="assets/egg.svg" alt="Egg collectible" />
+              <p style="font-size: 0.9rem; color: #666; margin-top: 1rem">
+                Soft on the outside, chaotic on the inside. Just like Poka. Take
+                your meds.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="bg-dark fade-in-section">
+        © 2025 Poka Reminder · <a href="privacy.html">Privacy Policy</a> ·
+        <a href="terms.html">Terms & Conditions</a> · Made with ❤️
+      </footer>
+    </main>
+    <script>
+      const vid = document.getElementById("intro-video");
+      const main = document.getElementById("site-content");
+      if (vid) {
+        vid.addEventListener("ended", () => {
+          vid.style.display = "none";
+          main.classList.add("visible");
+        });
+        // Fallback in case 'ended' doesn't fire (e.g., autoplay blocked)
+        setTimeout(() => {
+          if (!main.classList.contains("visible")) {
+            vid.style.display = "none";
+            main.classList.add("visible");
+          }
+        }, 3000);
+      } else {
+        main.classList.add("visible");
+      }
+    </script>
+    <script>
+      const faders = document.querySelectorAll(".fade-in-section");
+
+      const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const appearOnScroll = new IntersectionObserver(function (
+        entries,
+        appearOnScroll
+      ) {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          appearOnScroll.unobserve(entry.target);
+        });
+      },
+      appearOptions);
+
+      faders.forEach((fader) => {
+        appearOnScroll.observe(fader);
+      });
+    </script>
+  </body>
+</html>
