@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Poka Reminder – Make medication fun</title>
+    <link rel="icon" type="image/png" href="assets/macot_logo.png" />
     <meta
       name="description"
       content="Poka Reminder turns your daily medication routine into a fun, gamified experience. Never miss a dose again."
@@ -17,13 +18,8 @@
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
       }
-
       #site-content.visible {
         opacity: 1;
-      }
-      :root {
-        --accent: #000;
-        --bg-light: #f7f7f8;
       }
       * {
         box-sizing: border-box;
@@ -32,36 +28,8 @@
         margin: 0;
         font-family: "Poppins", sans-serif;
         line-height: 1.5;
-        color: var(--accent);
+        color: #000;
         background: #f7f7f8;
-      }
-      .bg-light {
-        background-color: var(--bg-light);
-      }
-      .bg-dark {
-        background-color: #1c1c1e;
-        color: #fff;
-      }
-      .bg-dark a,
-      .bg-dark p,
-      .bg-dark h2,
-      .bg-dark h1,
-      .bg-dark .feature-title {
-        color: #fff;
-      }
-      .bg-dark .feature-icon {
-        stroke: #fff;
-      }
-      .bg-dark a {
-        text-decoration: underline;
-      }
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
       }
       header,
       section {
@@ -71,140 +39,370 @@
         max-width: 960px;
         margin: 0 auto;
       }
-      /* Hero */
-      .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-      }
-      .hero h1 {
-        font-size: 2.75rem;
-        margin: 2rem 0 1.5rem;
-        line-height: 1.4;
-      }
-      .hero-big {
-        /* font-size: 3.2rem; */
-        font-weight: 700;
-        /* letter-spacing: -1px; */
-      }
-
-      .hero-accent {
-        text-transform: uppercase;
-      }
-
-      .tagline {
-        color: #555;
-        font-size: 1rem;
-        margin-top: 0.5rem;
-      }
-
-      .feature-icon {
-        margin-bottom: 0.75rem;
-        stroke: none;
-      }
-      .hero p {
-        font-size: 1.15rem;
-        max-width: 500px;
-        margin: 0 0 2rem;
-      }
-      .cta-btn {
-        display: inline-block;
-        padding: 0.9rem 1.8rem;
-        background: var(--accent);
-        color: #fff;
-        border-radius: 6px;
-        font-weight: 600;
-        transition: background 0.3s;
-      }
-      .cta-btn:hover {
-        background: #333;
-      }
-      /* Features */
-      .features {
-        background: var(--bg-light);
-      }
-      .feature-grid {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        text-align: center;
-      }
-      .feature-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
-      .feature-card {
-        background: #fff;
-        border-radius: 16px;
-        padding: 2rem 1.5rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        transition: transform 0.3s ease;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-4px);
-      }
-      /* How it works */
-      .steps {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      }
-      .step-number {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-      }
-      /* Rewards */
-      .rewards {
-        background: var(--bg-light);
-        text-align: center;
-      }
-      .rewards h2 {
-        font-size: 2rem;
-      }
-      .card-gallery {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 0.5rem 0;
-      }
-      .card-gallery img {
-        flex: 0 0 auto;
-        width: 120px;
-        height: auto;
-      }
-      @media (min-width: 768px) {
-        .hero h1 {
-          font-size: 3.5rem;
-        }
-      }
-      /* Footer */
-      footer {
-        text-align: center;
-        font-size: 0.85rem;
-        padding: 2rem 1.25rem;
-      }
-
-      /* MOBILE FIRST – nothing else needed */
-
       .fade-in-section {
         opacity: 0;
         transform: translateY(40px);
         transition: opacity 1s ease-out, transform 1s ease-out;
         will-change: opacity, transform;
       }
-
       .fade-in-section.is-visible {
         opacity: 1;
         transform: none;
       }
+      .liquid-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 1200ms ease;
+      }
+      .liquid-bg.visible {
+        opacity: 1;
+      }
+      .liquid-bg svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      .blob {
+        fill: #000;
+      }
+      .blob.a {
+        animation: float1 24s ease-in-out infinite alternate;
+      }
+      .blob.b {
+        animation: float2 28s ease-in-out infinite alternate;
+      }
+      .blob.c {
+        animation: float3 26s ease-in-out infinite alternate;
+      }
+      @keyframes float1 {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        100% {
+          transform: translate(80px, -40px) scale(1.15);
+        }
+      }
+      @keyframes float2 {
+        0% {
+          transform: translate(0, 0) scale(1.05);
+        }
+        100% {
+          transform: translate(-60px, 50px) scale(0.95);
+        }
+      }
+      @keyframes float3 {
+        0% {
+          transform: translate(0, 0) scale(0.95);
+        }
+        100% {
+          transform: translate(50px, 60px) scale(1.1);
+        }
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .blob {
+          animation: none !important;
+        }
+      }
+      .auto-contrast {
+        color: #fff; /* base color */
+        mix-blend-mode: difference; /* invert against backdrop */
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+          1px 1px 0 #fff, 0px 0px 2px #fff; /* extra blur for thickness */
+      }
+      /* --- Brutalist layout --- */
+      .brutal {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      @media (max-width: 900px) {
+        .brutal {
+          grid-template-columns: 1fr;
+        }
+      }
+      .block {
+        border: 2px solid #fff;
+        background: rgba(0, 0, 0, 0.65);
+        padding: 22px;
+        position: relative;
+        border-radius: 12px;
+      }
+      .block h2,
+      .block h1,
+      .block p,
+      .block li {
+        margin: 0 0 8px 0;
+      }
+      .block h1 {
+        font-size: clamp(36px, 6vw, 72px);
+        line-height: 0.95;
+        letter-spacing: -0.5px;
+      }
+      .block h2 {
+        font-size: clamp(18px, 2.5vw, 28px);
+        text-transform: uppercase;
+      }
+      .block p {
+        font-size: clamp(14px, 1.4vw, 18px);
+        color: #e6e6e6;
+        font-weight: 500;
+      }
+      .block ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* prevent stretching full width */
+        gap: 8px;
+      }
+      .tag {
+        display: inline-flex; /* hug content */
+        align-items: center;
+        width: auto; /* no stretch */
+        border: 2px solid #fff;
+        padding: 6px 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 12px;
+        background: #000;
+        border-radius: 8px;
+      }
+      .download-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .download-cta .cta-btn {
+        display: inline-flex; /* already from .tag, but ensure centering */
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        text-decoration: none;
+        width: 100%; /* allow flex-basis to control width */
+        flex: 1 1 calc(50% - 6px); /* two per row, accounting for 12px gap */
+        border-radius: 8px;
+      }
+      @media (max-width: 480px) {
+        .download-cta .cta-btn {
+          flex-basis: 100%;
+        } /* stack on very small screens */
+      }
+      .tag.stat {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .stat__label {
+        white-space: nowrap;
+      }
+      .stat__dots {
+        display: flex;
+        gap: 6px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        opacity: 0.6;
+      }
+      .dot--filled {
+        background: #fff;
+        opacity: 1;
+      }
+      /* odd placements */
+      .block--hero {
+        grid-column: 1 / span 2;
+        display: grid;
+        align-content: end;
+      }
+      .block--hero h1,
+      .block--hero p,
+      .block--hero .hr {
+        position: relative;
+        z-index: 1;
+      }
+      .block--who {
+        grid-column: 3;
+        grid-row: span 2;
+      }
+      .block--pers {
+        grid-column: 1;
+      }
+      .block--mix {
+        grid-column: 2;
+        display: grid;
+        grid-auto-rows: min-content;
+      }
+      /* .block--story removed */
+      .block--app {
+        grid-column: 1 / span 3;
+      }
+      .block--download {
+        grid-column: 1 / span 3;
+        text-align: center;
+      }
+      @media (max-width: 900px) {
+        .block--hero,
+        .block--who,
+        .block--pers,
+        .block--mix,
+        /* .block--story removed */
+        .block--app,
+        .block--download {
+          grid-column: auto;
+        }
+        .block--who {
+          grid-row: auto;
+        }
+      }
+      /* stamp */
+      .stamp {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        background: #fff;
+        padding: 6px;
+        transform: rotate(2deg);
+        border: 2px solid #000;
+        border-radius: 8px;
+      }
+      .stamp img {
+        display: block;
+        width: clamp(48px, 6vw, 72px);
+        height: auto; /* prevent stretching */
+        object-fit: contain; /* keep aspect ratio */
+      }
+      /* subtle divider */
+      .hr {
+        height: 2px;
+        background: #fff;
+        margin: 10px 0 14px 0;
+        opacity: 0.7;
+      }
+      /* outline helper on big headings for readability */
+      .outlined {
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+          1px 1px 0 #fff, 0 0 2px #fff;
+      }
     </style>
   </head>
   <body>
+    <div class="liquid-bg">
+      <svg
+        viewBox="0 0 100 100"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+      >
+        <defs>
+          <!-- Gooey filter: blur + threshold for crisp edges while merging -->
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <!-- Increase the matrix values (4th column) to hard-threshold the alpha -->
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="
+              1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 20 -10"
+              result="goo"
+            />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+          </filter>
+        </defs>
+
+        <g filter="url(#goo)">
+          <!-- Use multiple circles that intersect and animate -->
+          <g class="blob a">
+            <circle cx="25" cy="35" r="14" />
+            <!-- face on blob
+            <g aria-hidden="true">
+              <ellipse
+                cx="17"
+                cy="36"
+                rx="4.2"
+                ry="3.7"
+                fill="none"
+                stroke="#fff"
+                stroke-width="0.5"
+                transform="rotate(-8, 17, 36)"
+              />
+              <ellipse
+                cx="32"
+                cy="36"
+                rx="4.2"
+                ry="3.7"
+                fill="none"
+                stroke="#fff"
+                stroke-width="0.5"
+                transform="rotate(8, 32, 36)"
+              />
+              <ellipse
+                cx="25"
+                cy="40"
+                rx="1.5"
+                ry="1.1"
+                fill="none"
+                stroke="#fff"
+                stroke-width="0.5"
+              />
+            </g> -->
+          </g>
+          <g class="blob b">
+            <circle cx="70" cy="30" r="12" />
+          </g>
+          <g class="blob c">
+            <circle cx="45" cy="70" r="16" />
+          </g>
+          <!-- Small movers to create extra intersections -->
+          <g class="blob a" style="animation-delay: -6s">
+            <circle cx="85" cy="75" r="10" />
+          </g>
+          <g class="blob b" style="animation-delay: -12s">
+            <circle cx="15" cy="80" r="11" />
+          </g>
+          <g class="blob a" style="animation-delay: -3s">
+            <circle cx="60" cy="85" r="9" />
+          </g>
+          <g class="blob b" style="animation-delay: -7s">
+            <circle cx="32" cy="18" r="8" />
+          </g>
+          <g class="blob c" style="animation-delay: -11s">
+            <circle cx="78" cy="55" r="10" />
+          </g>
+          <g class="blob a" style="animation-delay: -15s">
+            <circle cx="12" cy="54" r="9" />
+          </g>
+          <g class="blob b" style="animation-delay: -19s">
+            <circle cx="88" cy="20" r="7" />
+          </g>
+          <g class="blob c" style="animation-delay: -21s">
+            <circle cx="52" cy="42" r="8" />
+          </g>
+          <g class="blob a" style="animation-delay: -24s">
+            <circle cx="40" cy="90" r="7" />
+          </g>
+          <g class="blob b" style="animation-delay: -27s">
+            <circle cx="5" cy="25" r="6" />
+          </g>
+        </g>
+      </svg>
+    </div>
     <video
       id="intro-video"
       src="assets/card_reveal.mp4"
@@ -223,195 +421,160 @@
       "
     ></video>
     <main id="site-content">
-      <!-- HERO -->
-      <header class="bg-light fade-in-section">
-        <div class="wrapper hero">
-          <img
-            src="assets/logo.png"
-            alt="Poka Reminder Logo"
-            style="
-              width: 80px;
-              height: auto;
-              margin: 0 auto 1.5rem;
-              display: block;
-            "
-          />
-
-          <h1 class="hero-title">
-            Take your meds.<br />
-            Earn rewards.<br />
-            Feel
-            <span class="hero-accent" style="font-weight: 800">better.</span>
-          </h1>
-
-          <p class="tagline">
-            Poka turns your routine into a game. Stay consistent and unlock fun
-            collectibles along the way.
-          </p>
-
-          <a href="#waitlist" class="cta-btn">Download now</a>
-
-          <img
-            src="assets/mockup.png"
-            alt="App Mockup"
-            style="
-              width: 100%;
-              max-width: 800px;
-              margin-top: 3rem;
-              border-radius: 16px;
-            "
-          />
-        </div>
-      </header>
-
-      <!-- FEATURES -->
-      <section class="features bg-light fade-in-section">
-        <div class="wrapper feature-grid">
-          <div class="feature-card">
-            <svg
-              class="feature-icon"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="black"
-            >
-              <path
-                d="M9 2a2 2 0 0 0-2 2v2H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2
-                       2 0 0 0 2-2V8a2 2 0 0 0-2-2h-1V4a2 2 0 0 0-2-2H9z"
-              />
-              <path
-                fill="#fff"
-                d="M16.5 11l-5 5-2.5-2.5L10 12l1.5 1.5 3.5-3.5z"
-              />
-            </svg>
-            <div class="feature-title">Effortless Tracking</div>
+      <!-- Add your content below. Sections with .fade-in-section will animate in on scroll. -->
+      <header class="fade-in-section">
+        <section class="brutal auto-contrast">
+          <div class="block block--hero">
+            <span class="stamp"
+              ><img src="assets/logo.png" alt="Poka Reminder logo"
+            /></span>
+            <h1 class="outlined">Meet Poka</h1>
+            <div class="hr"></div>
             <p>
-              Log every prescription once and let Poka handle the reminders.
+              Here to help you remember your medications. Download now on...
+            </p>
+            <div class="download-cta">
+              <a href="#waitlist" class="tag cta-btn">App Store</a>
+              <a href="#waitlist" class="tag cta-btn">Google Play</a>
+            </div>
+            <p style="font-size: 12px; opacity: 0.85; margin-top: 10px">
+              Coming Soon! Join the waitlist to get early access.
             </p>
           </div>
-          <div class="feature-card">
-            <svg
-              class="feature-icon"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="black"
-            >
-              <path
-                d="M12 2a8 8 0 0 0-8 8v5l-2 2v1h20v-1l-2-2v-5a8 8 0 0 0-8-8z"
-              />
-              <path fill="#fff" d="M11 6h2v7h-2zm0 8h2v2h-2z" />
-            </svg>
-            <div class="feature-title">Timely Reminders</div>
-            <p>
-              Smart notifications arrive exactly when you need them. Not a
-              second sooner or later.
-            </p>
-          </div>
-          <div class="feature-card">
-            <svg
-              class="feature-icon"
-              width="48"
-              height="48"
-              viewBox="0 0 24 24"
-              fill="black"
-            >
-              <rect x="3" y="4" width="18" height="14" rx="2" />
-              <path fill="#fff" d="M8 9h8v2H8zM8 12h6v2H8z" />
-            </svg>
-            <div class="feature-title">Collectible Cards</div>
-            <p>
-              Earn unique cards for streaks and milestone achievements. Good
-              habits unlock rewards!
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <!-- HOW IT WORKS -->
-      <section class="bg-dark fade-in-section">
-        <div class="wrapper" style="text-align: center; max-width: 720px">
-          <h2 style="font-size: 2rem; margin-bottom: 2rem">How It Works</h2>
-          <div
-            class="steps"
-            style="display: flex; flex-direction: column; gap: 2rem"
-          >
-            <div>
-              <div class="step-number">1.</div>
-              <p>Add your routines and schedule.</p>
-            </div>
-            <div>
-              <div class="step-number">2.</div>
-              <p>Receive gentle nudges at the right time.</p>
-            </div>
-            <div>
-              <div class="step-number">3.</div>
-              <p>Mark doses taken and watch your card deck grow.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REWARDS -->
-      <section class="rewards bg-light fade-in-section">
-        <div class="wrapper">
-          <h2>Make Routines Fun</h2>
-          <p>
-            Consistency shouldn’t feel like a chore. Poka’s collectible cards
-            add a playful twist to everyday health routines.
-          </p>
-          <div class="card-gallery">
+          <div class="block block--who">
+            <h2>Who is Poka</h2>
+            <p>
+              Poka is 87% water, 13% penguin, 0% okay with you forgetting your
+              meds.
+            </p>
             <div
-              class="feature-card"
               style="
-                padding: 2rem;
-                background: #fff;
-                max-width: 320px;
-                margin: 0 auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-grow: 1;
+                margin-top: 16px;
               "
             >
-              <h3
-                style="
-                  font-weight: 600;
-                  font-size: 1.25rem;
-                  margin-bottom: 0.5rem;
-                "
-              >
-                LV. 1 - Sad Egg
-              </h3>
-              <img src="assets/egg.svg" alt="Egg collectible" />
-              <p style="font-size: 0.9rem; color: #666; margin-top: 1rem">
-                Soft on the outside, chaotic on the inside. Just like Poka. Take
-                your meds.
-              </p>
+              <img
+                src="assets/egg.svg"
+                alt="Poka Egg"
+                style="max-width: 160px; height: auto"
+              />
             </div>
           </div>
-        </div>
-      </section>
 
-      <!-- FOOTER -->
-      <footer class="bg-dark fade-in-section">
-        © 2025 Poka Reminder · <a href="privacy.html">Privacy Policy</a> ·
-        <a href="terms.html">Terms & Conditions</a> · Made with ❤️
-      </footer>
+          <div class="block block--pers">
+            <h2>Personality</h2>
+            <ul>
+              <li class="tag stat">
+                <span class="stat__label">Swimming Speed</span>
+                <span class="stat__dots" aria-label="1 out of 5">
+                  <i class="dot dot--filled"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                </span>
+              </li>
+              <li class="tag stat">
+                <span class="stat__label">Melt Resistance</span>
+                <span class="stat__dots" aria-label="0 out of 5">
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                  <i class="dot"></i>
+                </span>
+              </li>
+              <li class="tag stat">
+                <span class="stat__label">Medication Memory</span>
+                <span class="stat__dots" aria-label="5 out of 5">
+                  <i class="dot dot--filled"></i>
+                  <i class="dot dot--filled"></i>
+                  <i class="dot dot--filled"></i>
+                  <i class="dot dot--filled"></i>
+                  <i class="dot dot--filled"></i>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="block block--mix">
+            <h2>Fun fact</h2>
+            <p>
+              When stressed, Poka can accidentally melt into a small puddle but
+              don’t worry, he eventually re-forms… usually.
+            </p>
+          </div>
+
+          <div class="block block--app">
+            <h2>The App</h2>
+            <p>
+              Poka is your friendly medication side‑quest. Get gentle nudges
+              when it’s time, check off your dose, and watch Poka relax. As you
+              stay consistent you level up, unlock collectible cards, and build
+              a deck that shows your streak power. Miss a day? Poka gets a bit
+              melty, jump back in and rescue him.
+            </p>
+          </div>
+        </section>
+      </header>
     </main>
+    <footer
+      style="
+        padding: 2rem 1.25rem;
+        text-align: center;
+        font-size: 14px;
+        opacity: 0.85;
+      "
+    >
+      <div style="margin-bottom: 8px">
+        <a
+          href="privacy.html"
+          class="outlined"
+          style="color: inherit; text-decoration: underline; margin-right: 8px"
+        >
+          Privacy Policy
+        </a>
+        <a
+          href="terms.html"
+          class="outlined"
+          style="color: inherit; text-decoration: underline"
+        >
+          Terms &amp; Conditions
+        </a>
+      </div>
+      <div>© <span id="year"></span> Poka Reminder. All rights reserved.</div>
+    </footer>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
     <script>
       const vid = document.getElementById("intro-video");
       const main = document.getElementById("site-content");
+      const bg = document.querySelector(".liquid-bg");
+
       if (vid) {
         vid.addEventListener("ended", () => {
           vid.style.display = "none";
           main.classList.add("visible");
+          if (bg) bg.classList.add("visible");
         });
         // Fallback in case 'ended' doesn't fire (e.g., autoplay blocked)
         setTimeout(() => {
           if (!main.classList.contains("visible")) {
             vid.style.display = "none";
             main.classList.add("visible");
+            if (bg) bg.classList.add("visible");
           }
         }, 3000);
       } else {
+        vid.style.display = "none";
         main.classList.add("visible");
+        if (bg) bg.classList.add("visible");
       }
     </script>
     <script>
@@ -437,6 +600,36 @@
       faders.forEach((fader) => {
         appearOnScroll.observe(fader);
       });
+    </script>
+    <script>
+      // Simple background contrast detection
+      const textContainers = document.querySelectorAll(
+        "#site-content, #site-content *"
+      );
+      function getAverageRGB(el) {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const rect = el.getBoundingClientRect();
+        canvas.width = 1;
+        canvas.height = 1;
+        try {
+          ctx.drawWindow(window, rect.left, rect.top, 1, 1, "rgb(0,0,0)");
+        } catch (e) {
+          return { r: 255, g: 255, b: 255 }; // fallback white
+        }
+        const data = ctx.getImageData(0, 0, 1, 1).data;
+        return { r: data[0], g: data[1], b: data[2] };
+      }
+      function updateTextContrast() {
+        textContainers.forEach((el) => {
+          const rgb = getAverageRGB(el);
+          const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+          el.style.color = brightness > 128 ? "#000" : "#fff";
+        });
+      }
+      window.addEventListener("scroll", updateTextContrast);
+      window.addEventListener("resize", updateTextContrast);
+      window.addEventListener("load", updateTextContrast);
     </script>
   </body>
 </html>
