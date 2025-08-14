@@ -24,11 +24,17 @@
       * {
         box-sizing: border-box;
       }
+      /* Clean text by default */
+      body,
+      body * {
+        color: #111; /* black text everywhere */
+        -webkit-text-stroke: 0; /* remove stroked edges */
+        text-shadow: none; /* remove white borders/glows */
+      }
       body {
         margin: 0;
         font-family: "Poppins", sans-serif;
         line-height: 1.5;
-        color: #000;
         background: #f7f7f8;
       }
       header,
@@ -112,10 +118,9 @@
         }
       }
       .auto-contrast {
-        color: #fff; /* base color */
-        mix-blend-mode: difference; /* invert against backdrop */
-        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
-          1px 1px 0 #fff, 0px 0px 2px #fff; /* extra blur for thickness */
+        color: inherit; /* no special contrast tricks */
+        -webkit-text-stroke: 0;
+        text-shadow: none;
       }
       /* --- Brutalist layout --- */
       .brutal {
@@ -131,11 +136,15 @@
         }
       }
       .block {
-        border: 2px solid #fff;
-        background: rgba(0, 0, 0, 0.65);
-        padding: 22px;
         position: relative;
-        border-radius: 12px;
+        padding: 22px;
+        border-radius: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.7); /* subtle light edge */
+        background: rgba(255, 255, 255, 0.6); /* white, dimmed */
+        backdrop-filter: blur(12px) saturate(140%);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06),
+          inset 0 1px 0 rgba(255, 255, 255, 0.35);
       }
       .block h2,
       .block h1,
@@ -154,7 +163,7 @@
       }
       .block p {
         font-size: clamp(14px, 1.4vw, 18px);
-        color: #e6e6e6;
+        color: #333;
         font-weight: 500;
       }
       .block ul {
@@ -167,16 +176,21 @@
         gap: 8px;
       }
       .tag {
-        display: inline-flex; /* hug content */
+        display: inline-flex;
         align-items: center;
-        width: auto; /* no stretch */
-        border: 2px solid #fff;
-        padding: 6px 10px;
+        width: auto;
+        padding: 6px 12px;
         font-weight: 600;
         text-transform: uppercase;
         font-size: 12px;
-        background: #000;
-        border-radius: 8px;
+        color: #fff; /* white text on dark bg */
+        background: rgba(0, 0, 0, 0.99); /* near-black, slightly translucent */
+        border: 1px solid rgba(255, 255, 255, 0.18); /* subtle light edge to fit glass theme */
+        border-radius: 10px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05),
+          0 6px 20px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
       }
       .download-cta {
         display: flex;
@@ -185,14 +199,32 @@
         margin-top: 12px;
       }
       .download-cta .cta-btn {
-        display: inline-flex; /* already from .tag, but ensure centering */
+        display: inline-flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         text-decoration: none;
-        width: 100%; /* allow flex-basis to control width */
-        flex: 1 1 calc(50% - 6px); /* two per row, accounting for 12px gap */
+        width: 100%;
+        flex: 1 1 calc(50% - 6px);
         border-radius: 8px;
+        color: #fff; /* white text for dark buttons */
+        transition: transform 120ms ease, background-color 120ms ease,
+          box-shadow 120ms ease;
+      }
+      .download-cta .cta-btn:hover {
+        background: rgba(17, 17, 17, 1);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06),
+          0 8px 24px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
+      }
+      .tag.stat .dot {
+        border-color: rgba(255, 255, 255, 0.9);
+        opacity: 0.7;
+      }
+      .tag.stat .dot--filled {
+        background: #fff;
+        border-color: #fff;
+        opacity: 1;
       }
       @media (max-width: 480px) {
         .download-cta .cta-btn {
@@ -207,6 +239,7 @@
       }
       .stat__label {
         white-space: nowrap;
+        color: white;
       }
       .stat__dots {
         display: flex;
@@ -215,12 +248,13 @@
       .dot {
         width: 8px;
         height: 8px;
-        border: 2px solid #fff;
+        border: 2px solid #111;
         border-radius: 50%;
-        opacity: 0.6;
+        opacity: 0.5;
+        background: transparent;
       }
       .dot--filled {
-        background: #fff;
+        background: #111;
         opacity: 1;
       }
       /* odd placements */
@@ -274,11 +308,15 @@
         position: absolute;
         top: -12px;
         right: -12px;
-        background: #fff;
         padding: 6px;
         transform: rotate(2deg);
-        border: 2px solid #000;
         border-radius: 8px;
+        background: rgba(255, 255, 255, 0.7); /* dimmed white glass */
+        border: 1px solid rgba(255, 255, 255, 0.6); /* subtle light edge */
+        backdrop-filter: blur(8px) saturate(140%);
+        -webkit-backdrop-filter: blur(8px) saturate(140%);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.35);
       }
       .stamp img {
         display: block;
@@ -289,14 +327,15 @@
       /* subtle divider */
       .hr {
         height: 2px;
-        background: #fff;
+        background: rgba(0, 0, 0, 0.08);
         margin: 10px 0 14px 0;
-        opacity: 0.7;
+        opacity: 1;
       }
       /* outline helper on big headings for readability */
       .outlined {
-        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
-          1px 1px 0 #fff, 0 0 2px #fff;
+        color: #111; /* just clean heading text */
+        -webkit-text-stroke: 0;
+        text-shadow: none;
       }
     </style>
   </head>
@@ -434,8 +473,8 @@
               Here to help you remember your medications. Download now on...
             </p>
             <div class="download-cta">
-              <a href="#waitlist" class="tag cta-btn">App Store</a>
-              <a href="#waitlist" class="tag cta-btn">Google Play</a>
+              <a href="#waitlist" class="tag cta-btn"> App Store</a>
+              <a href="#waitlist" class="tag cta-btn">▶ Google Play</a>
             </div>
             <p style="font-size: 12px; opacity: 0.85; margin-top: 10px">
               Coming Soon! Join the waitlist to get early access.
@@ -599,36 +638,6 @@
       faders.forEach((fader) => {
         appearOnScroll.observe(fader);
       });
-    </script>
-    <script>
-      // Simple background contrast detection
-      const textContainers = document.querySelectorAll(
-        "#site-content, #site-content *"
-      );
-      function getAverageRGB(el) {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const rect = el.getBoundingClientRect();
-        canvas.width = 1;
-        canvas.height = 1;
-        try {
-          ctx.drawWindow(window, rect.left, rect.top, 1, 1, "rgb(0,0,0)");
-        } catch (e) {
-          return { r: 255, g: 255, b: 255 }; // fallback white
-        }
-        const data = ctx.getImageData(0, 0, 1, 1).data;
-        return { r: data[0], g: data[1], b: data[2] };
-      }
-      function updateTextContrast() {
-        textContainers.forEach((el) => {
-          const rgb = getAverageRGB(el);
-          const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-          el.style.color = brightness > 128 ? "#000" : "#fff";
-        });
-      }
-      window.addEventListener("scroll", updateTextContrast);
-      window.addEventListener("resize", updateTextContrast);
-      window.addEventListener("load", updateTextContrast);
     </script>
   </body>
 </html>
