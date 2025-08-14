@@ -55,78 +55,25 @@
         opacity: 1;
         transform: none;
       }
-      .liquid-bg {
+      /* Fullscreen video background */
+      #bg-video {
         position: fixed;
         inset: 0;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
         z-index: -1;
         pointer-events: none;
-        opacity: 0;
-        transition: opacity 1200ms ease;
-      }
-      .liquid-bg.visible {
         opacity: 1;
       }
-      .liquid-bg svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-        contain: strict;
-        will-change: transform;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-      }
-      .blob {
-        fill: #000;
-        will-change: transform;
-        transform: translate3d(0, 0, 0);
-        transform-box: fill-box;
-        transform-origin: center;
-      }
-      .blob.a {
-        animation: float1 24s ease-in-out infinite alternate;
-      }
-      .blob.b {
-        animation: float2 28s ease-in-out infinite alternate;
-      }
-      .blob.c {
-        animation: float3 26s ease-in-out infinite alternate;
-      }
-
-      .liquid-bg circle {
-        shape-rendering: optimizeSpeed;
-      }
-      @keyframes float1 {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1);
-        }
-        100% {
-          transform: translate3d(80px, -40px, 0) scale(1.15);
-        }
-      }
-      @keyframes float2 {
-        0% {
-          transform: translate3d(0, 0, 0) scale(1.05);
-        }
-        100% {
-          transform: translate3d(-60px, 50px, 0) scale(0.95);
-        }
-      }
-      @keyframes float3 {
-        0% {
-          transform: translate3d(0, 0, 0) scale(0.95);
-        }
-        100% {
-          transform: translate3d(50px, 60px, 0) scale(1.1);
+      @media (prefers-reduced-motion: reduce) {
+        #bg-video {
+          display: none;
         }
       }
       @keyframes fadeIn {
         to {
           opacity: 1;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .blob {
-          animation: none !important;
         }
       }
       .auto-contrast {
@@ -353,117 +300,15 @@
     </style>
   </head>
   <body>
-    <div class="liquid-bg">
-      <svg
-        viewBox="0 0 100 100"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <defs>
-          <!-- Gooey filter: blur + threshold for crisp edges while merging -->
-          <filter
-            id="goo"
-            x="-20%"
-            y="-20%"
-            width="140%"
-            height="140%"
-            filterUnits="objectBoundingBox"
-            color-interpolation-filters="sRGB"
-            filterRes="220"
-          >
-            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-            <!-- Increase the matrix values (4th column) to hard-threshold the alpha -->
-            <feColorMatrix
-              in="blur"
-              mode="matrix"
-              values="
-              1 0 0 0 0
-              0 1 0 0 0
-              0 0 1 0 0
-              0 0 0 20 -10"
-              result="goo"
-            />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-          </filter>
-        </defs>
-
-        <g filter="url(#goo)">
-          <!-- Use multiple circles that intersect and animate -->
-          <g class="blob a">
-            <circle cx="25" cy="35" r="14" />
-            <!-- face on blob
-            <g aria-hidden="true">
-              <ellipse
-                cx="17"
-                cy="36"
-                rx="4.2"
-                ry="3.7"
-                fill="none"
-                stroke="#fff"
-                stroke-width="0.5"
-                transform="rotate(-8, 17, 36)"
-              />
-              <ellipse
-                cx="32"
-                cy="36"
-                rx="4.2"
-                ry="3.7"
-                fill="none"
-                stroke="#fff"
-                stroke-width="0.5"
-                transform="rotate(8, 32, 36)"
-              />
-              <ellipse
-                cx="25"
-                cy="40"
-                rx="1.5"
-                ry="1.1"
-                fill="none"
-                stroke="#fff"
-                stroke-width="0.5"
-              />
-            </g> -->
-          </g>
-          <g class="blob b">
-            <circle cx="70" cy="30" r="12" />
-          </g>
-          <g class="blob c">
-            <circle cx="45" cy="70" r="16" />
-          </g>
-          <!-- Small movers to create extra intersections -->
-          <g class="blob a" style="animation-delay: -6s">
-            <circle cx="85" cy="75" r="10" />
-          </g>
-          <g class="blob b" style="animation-delay: -12s">
-            <circle cx="15" cy="80" r="11" />
-          </g>
-          <g class="blob a" style="animation-delay: -3s">
-            <circle cx="60" cy="85" r="9" />
-          </g>
-          <g class="blob b" style="animation-delay: -7s">
-            <circle cx="32" cy="18" r="8" />
-          </g>
-          <g class="blob c" style="animation-delay: -11s">
-            <circle cx="78" cy="55" r="10" />
-          </g>
-          <g class="blob a" style="animation-delay: -15s">
-            <circle cx="12" cy="54" r="9" />
-          </g>
-          <g class="blob b" style="animation-delay: -19s">
-            <circle cx="88" cy="20" r="7" />
-          </g>
-          <g class="blob c" style="animation-delay: -21s">
-            <circle cx="52" cy="42" r="8" />
-          </g>
-          <g class="blob a" style="animation-delay: -24s">
-            <circle cx="40" cy="90" r="7" />
-          </g>
-          <g class="blob b" style="animation-delay: -27s">
-            <circle cx="5" cy="25" r="6" />
-          </g>
-        </g>
-      </svg>
-    </div>
+    <video
+      id="bg-video"
+      src="assets/background_blobs.mp4"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    ></video>
     <video
       id="intro-video"
       src="assets/card_reveal.mp4"
@@ -621,26 +466,21 @@
     <script>
       const vid = document.getElementById("intro-video");
       const main = document.getElementById("site-content");
-      const bg = document.querySelector(".liquid-bg");
 
       if (vid) {
         vid.addEventListener("ended", () => {
           vid.style.display = "none";
           main.classList.add("visible");
-          if (bg) bg.classList.add("visible");
         });
         // Fallback in case 'ended' doesn't fire (e.g., autoplay blocked)
         setTimeout(() => {
           if (!main.classList.contains("visible")) {
             vid.style.display = "none";
             main.classList.add("visible");
-            if (bg) bg.classList.add("visible");
           }
         }, 3000);
       } else {
-        vid.style.display = "none";
         main.classList.add("visible");
-        if (bg) bg.classList.add("visible");
       }
     </script>
     <script>
