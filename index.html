@@ -70,11 +70,17 @@
         width: 100%;
         height: 100%;
         display: block;
+        contain: strict;
+        will-change: transform;
+        transform: translateZ(0);
+        backface-visibility: hidden;
       }
       .blob {
         fill: #000;
         will-change: transform;
         transform: translate3d(0, 0, 0);
+        transform-box: fill-box;
+        transform-origin: center;
       }
       .blob.a {
         animation: float1 24s ease-in-out infinite alternate;
@@ -84,6 +90,10 @@
       }
       .blob.c {
         animation: float3 26s ease-in-out infinite alternate;
+      }
+
+      .liquid-bg circle {
+        shape-rendering: optimizeSpeed;
       }
       @keyframes float1 {
         0% {
@@ -339,21 +349,7 @@
         -webkit-text-stroke: 0;
         text-shadow: none;
       }
-      @media (max-width: 900px) {
-        .blob.a {
-          animation-duration: 36s !important;
-        }
-        .blob.b {
-          animation-duration: 40s !important;
-        }
-        .blob.c {
-          animation-duration: 38s !important;
-        }
-        /* Reduce render load by hiding only deeper duplicates */
-        g.blob:nth-of-type(n + 7) {
-          display: none;
-        }
-      }
+      /* (mobile-only animation slow/hide block removed) */
     </style>
   </head>
   <body>
@@ -365,7 +361,16 @@
       >
         <defs>
           <!-- Gooey filter: blur + threshold for crisp edges while merging -->
-          <filter id="goo">
+          <filter
+            id="goo"
+            x="-20%"
+            y="-20%"
+            width="140%"
+            height="140%"
+            filterUnits="objectBoundingBox"
+            color-interpolation-filters="sRGB"
+            filterRes="220"
+          >
             <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
             <!-- Increase the matrix values (4th column) to hard-threshold the alpha -->
             <feColorMatrix
