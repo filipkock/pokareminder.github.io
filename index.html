@@ -73,6 +73,8 @@
       }
       .blob {
         fill: #000;
+        will-change: transform;
+        transform: translate3d(0, 0, 0);
       }
       .blob.a {
         animation: float1 24s ease-in-out infinite alternate;
@@ -85,26 +87,26 @@
       }
       @keyframes float1 {
         0% {
-          transform: translate(0, 0) scale(1);
+          transform: translate3d(0, 0, 0) scale(1);
         }
         100% {
-          transform: translate(80px, -40px) scale(1.15);
+          transform: translate3d(80px, -40px, 0) scale(1.15);
         }
       }
       @keyframes float2 {
         0% {
-          transform: translate(0, 0) scale(1.05);
+          transform: translate3d(0, 0, 0) scale(1.05);
         }
         100% {
-          transform: translate(-60px, 50px) scale(0.95);
+          transform: translate3d(-60px, 50px, 0) scale(0.95);
         }
       }
       @keyframes float3 {
         0% {
-          transform: translate(0, 0) scale(0.95);
+          transform: translate3d(0, 0, 0) scale(0.95);
         }
         100% {
-          transform: translate(50px, 60px) scale(1.1);
+          transform: translate3d(50px, 60px, 0) scale(1.1);
         }
       }
       @keyframes fadeIn {
@@ -327,7 +329,7 @@
       /* subtle divider */
       .hr {
         height: 2px;
-        background: rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.7);
         margin: 10px 0 14px 0;
         opacity: 1;
       }
@@ -336,6 +338,21 @@
         color: #111; /* just clean heading text */
         -webkit-text-stroke: 0;
         text-shadow: none;
+      }
+      @media (max-width: 900px) {
+        .blob.a {
+          animation-duration: 36s !important;
+        }
+        .blob.b {
+          animation-duration: 40s !important;
+        }
+        .blob.c {
+          animation-duration: 38s !important;
+        }
+        /* Reduce render load by hiding only deeper duplicates */
+        g.blob:nth-of-type(n + 7) {
+          display: none;
+        }
       }
     </style>
   </head>
